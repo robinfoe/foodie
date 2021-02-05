@@ -20,9 +20,9 @@ public class ConsumerWebHandler {
     private ConsumerService service;
 
     @PostMapping(
-            path = "create",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
+        path = "create",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ConsumerDTO create(@RequestBody ConsumerDTO formData) {
         return formData;
@@ -30,9 +30,9 @@ public class ConsumerWebHandler {
 
 
     @GetMapping(
-            path = "/get/{id}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
+        path = "/get/{id}",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ConsumerDTO get(@PathVariable(value="id") Integer id) {
         return service.getById(id);

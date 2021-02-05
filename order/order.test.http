@@ -11,6 +11,8 @@ content-type: application/json
     "restaurant" : {
         "id" : "1" 
     },
+
+    "menus": [],
     
     "consumer" : {
         "name": {

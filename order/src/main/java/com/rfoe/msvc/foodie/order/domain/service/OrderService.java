@@ -6,7 +6,9 @@ import javax.transaction.Transactional;
 
 import com.rfoe.msvc.foodie.common.base.BaseRepo;
 import com.rfoe.msvc.foodie.common.base.BaseService;
+import com.rfoe.msvc.foodie.common.enumeration.EventEnum;
 import com.rfoe.msvc.foodie.common.enumeration.OrderEnum;
+import com.rfoe.msvc.foodie.common.scalar.dto.KitchenDTO;
 import com.rfoe.msvc.foodie.common.scalar.dto.MenuDTO;
 import com.rfoe.msvc.foodie.common.scalar.dto.OrderDTO;
 import com.rfoe.msvc.foodie.common.scalar.dto.RestaurantDTO;
@@ -64,10 +66,11 @@ public class OrderService extends BaseService<Order> {
                 }
 
                 repo.save(order);
+                orderDTO.setId(order.getId());
                 orderDTO.setMessage("Order Successfully Submitted");
                 
                 // Perform call to kafka streaming
-                producer.raiseOrderCreatedEvent(order);
+                producer.raiseOrderCreatedEvent(orderDTO);
             }
 
             
@@ -82,17 +85,27 @@ public class OrderService extends BaseService<Order> {
 
 
     @Transactional
+    public void updateKitchenProgress(KitchenDTO kitchenDTO){
+
+        OrderEnum progress = OrderEnum.ACCEPTED;
+        switch (kitchenDTO.getEventType()){
+            case DOMAIN_KITCHEN_ACCEPT :    progress = OrderEnum.ACCEPTED;  break;
+            case DOMAIN_KITCHEN_PREPARING : progress = OrderEnum.PREPARING; break;
+            case DOMAIN_KITCHEN_COMPLETED : progress = OrderEnum.COMPLETED; break;
+            default : ;
+        }
+        this.updateOrder(kitchenDTO.getOrder(), progress);
+    }
+
+    @Transactional
     public OrderDTO cancelOrder(OrderDTO orderDTO){
         return updateOrder(orderDTO, OrderEnum.CANCELLED);
     }
 
-
     @Transactional
     public OrderDTO orderCompleted(OrderDTO orderDTO){
-
         return updateOrder(orderDTO, OrderEnum.COMPLETED);
     }
-
 
     @Transactional
     public OrderDTO updateOrder(OrderDTO orderDTO,OrderEnum progress){
@@ -143,23 +156,6 @@ public class OrderService extends BaseService<Order> {
     }
 
 
-
-    /*** HELPER FUNCTION ***/
-
-    // private RestTemplate restTemplate;
-    // private RestTemplate getRestTemplate(){
-    //     if(restTemplate == null){
-
-    //         HttpHeaders headers = new HttpHeaders();
-    //         headers.setContentType(MediaType.APPLICATION_JSON);
-    //         HttpEntity<String> entity = new HttpEntity<String>(postBodyJson ,headers);
-
-
-
-    //     }
-    //     return restTemplate;
-
-    // }
 
     
 }

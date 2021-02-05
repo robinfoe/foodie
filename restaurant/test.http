@@ -1,0 +1,17 @@
+
+GET http://localhost:8181/
+
+###
+GET http://localhost:8181/api/restaurant/get/1 HTTP/1.1
+
+
+# ###
+# POST http://localhost:8080/create HTTP/1.1
+# content-type: application/json
+
+# {
+#     "name": {
+#         "first" : "Robin",
+#         "last" : "Foe"
+#     }
+# } 

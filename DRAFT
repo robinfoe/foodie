@@ -1,0 +1,19 @@
+
+
+
+
+    - Consumer - name
+    -   Restaurant 
+            >-< Menu
+            >-< Address
+
+    -   Order
+            >-< Restaurant 
+                >-< Selected Menu Ids... 
+
+    -   Payment
+            >-< Amount
+            >-< Order Id
+               
+
+    -   Kitchen

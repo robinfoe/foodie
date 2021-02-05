@@ -1,0 +1,11 @@
+# See http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+spring:
+  thymeleaf.cache: false
+  main.show-banner: false
+
+server:
+  port: 8182
+
+app:
+  restaurant:
+    url: http://localhost:8181/api/restaurant

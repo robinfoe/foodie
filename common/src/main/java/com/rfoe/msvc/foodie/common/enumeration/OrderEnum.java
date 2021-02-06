@@ -30,21 +30,21 @@ public enum OrderEnum {
         return null;
     }
 
-    public static OrderEnum getNextStatus(String currentStatus){
-        return OrderEnum.getNextStatus(OrderEnum.getEnum(currentStatus));
-    }
+    // public static OrderEnum getNextStatus(String currentStatus){
+    //     return OrderEnum.getNextStatus(OrderEnum.getEnum(currentStatus));
+    // }
 
-    public static OrderEnum getNextStatus(OrderEnum currentStatus){
-        OrderEnum nextStatus = OrderEnum.INVALID;
-        switch (currentStatus){
-            case CREATED : nextStatus = ACCEPTED; break;
-            case ACCEPTED : nextStatus = PREPARING; break;
-            case PREPARING : nextStatus = COMPLETED; break;
-            default: ;
-        }
+    // public static OrderEnum getNextStatus(OrderEnum currentStatus){
+    //     OrderEnum nextStatus = OrderEnum.INVALID;
+    //     switch (currentStatus){
+    //         case CREATED : nextStatus = ACCEPTED; break;
+    //         case ACCEPTED : nextStatus = PREPARING; break;
+    //         case PREPARING : nextStatus = COMPLETED; break;
+    //         default: ;
+    //     }
 
-        return nextStatus;
-    }
+    //     return nextStatus;
+    // }
 
 
 

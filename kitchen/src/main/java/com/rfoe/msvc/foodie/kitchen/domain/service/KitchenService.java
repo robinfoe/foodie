@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import com.rfoe.msvc.foodie.common.base.BaseRepo;
 import com.rfoe.msvc.foodie.common.base.BaseService;
 import com.rfoe.msvc.foodie.common.enumeration.OrderEnum;
+import com.rfoe.msvc.foodie.common.event.progress.Event;
+import com.rfoe.msvc.foodie.common.event.progress.EventProgress;
 import com.rfoe.msvc.foodie.common.scalar.dto.KitchenDTO;
 import com.rfoe.msvc.foodie.common.scalar.dto.OrderDTO;
 import com.rfoe.msvc.foodie.kitchen.domain.entity.Kitchen;
@@ -48,22 +50,25 @@ public class KitchenService extends BaseService<Kitchen> {
         }
 
         Kitchen kitchen = kitchenOption.get();
-        OrderEnum statusEnum = OrderEnum.getNextStatus(kitchen.getStatus());
-        this.updateTicket(kitchen, statusEnum);
+        Optional<Event> event = EventProgress.getInstance().getNextEventByOrderEnum(OrderEnum.getEnum(kitchen.getStatus()));
+
+        // TODO consider database rollback
+        this.updateTicket(kitchen, event.get());
     }
 
     @Transactional
-    private void updateTicket(Kitchen kitchen, OrderEnum statusEnum){
+    private void updateTicket(Kitchen kitchen, Event event){
 
         try{
 
-            kitchen.setStatus(statusEnum.getStatus());
+            kitchen.setStatus(event.getOrder().getStatus());
+            
             KitchenDTO dto = new KitchenDTO();
             dto.setId(kitchen.getId());
             dto.getOrder().setId(kitchen.getOrderId());
-// TODO :: consider eventing progress... need to find appropriate design pattern
+            dto.setEventType(event.getEvent());
 
-            // dto.setEventType(eventType);
+            // TODO ;; broadcast eventing...
 
 
         }catch(Exception e){

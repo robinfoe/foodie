@@ -1,0 +1,43 @@
+GET http://localhost:8183/api/kitchen/get
+content-type: application/json
+
+
+
+
+####
+POST http://localhost:8183/api/kitchen/accept HTTP/1.1
+content-type: application/json
+
+  {
+    "id": 1,
+    "order": {
+      "id": 1
+      }
+    } 
+  }
+
+
+###
+POST http://localhost:8183/api/kitchen/prepare HTTP/1.1
+content-type: application/json
+
+  {
+    "id": 1,
+    "order": {
+      "id": 1
+      }
+    } 
+  }
+
+
+###
+POST http://localhost:8183/api/kitchen/complete HTTP/1.1
+content-type: application/json
+
+  {
+    "id": 1,
+    "order": {
+      "id": 1
+      }
+    } 
+  }

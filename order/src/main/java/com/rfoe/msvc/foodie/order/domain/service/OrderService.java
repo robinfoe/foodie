@@ -1,13 +1,16 @@
 package com.rfoe.msvc.foodie.order.domain.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import com.rfoe.msvc.foodie.common.base.BaseRepo;
 import com.rfoe.msvc.foodie.common.base.BaseService;
-import com.rfoe.msvc.foodie.common.enumeration.EventEnum;
 import com.rfoe.msvc.foodie.common.enumeration.OrderEnum;
+import com.rfoe.msvc.foodie.common.event.progress.Event;
+import com.rfoe.msvc.foodie.common.event.progress.EventProgress;
 import com.rfoe.msvc.foodie.common.scalar.dto.KitchenDTO;
 import com.rfoe.msvc.foodie.common.scalar.dto.MenuDTO;
 import com.rfoe.msvc.foodie.common.scalar.dto.OrderDTO;
@@ -23,7 +26,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class OrderService extends BaseService<Order> {
 
     @Autowired
@@ -39,6 +45,24 @@ public class OrderService extends BaseService<Order> {
 
     @Value( "${app.restaurant.url}" )
     private String restaurantBaseUrl;
+
+    @Transactional
+    public List<OrderDTO> getAllDTO(){
+        List<Order> orders = this.getAll();
+        List<OrderDTO> dtos = new ArrayList<OrderDTO>();
+
+        for(Order order : orders){
+            OrderDTO dto = new OrderDTO();
+            dto.setId(order.getId());
+            dto.setProgress(order.getProgress());
+            dto.getRestaurant().setId(order.getRestaurantId());
+            dto.getConsumer().setId(order.getConsumerId());
+            dtos.add(dto);
+        }
+        
+        return dtos;
+
+    }
 
     // needed order DTO 
     @Transactional
@@ -87,14 +111,13 @@ public class OrderService extends BaseService<Order> {
     @Transactional
     public void updateKitchenProgress(KitchenDTO kitchenDTO){
 
-        OrderEnum progress = OrderEnum.ACCEPTED;
-        switch (kitchenDTO.getEventType()){
-            case DOMAIN_KITCHEN_ACCEPT :    progress = OrderEnum.ACCEPTED;  break;
-            case DOMAIN_KITCHEN_PREPARING : progress = OrderEnum.PREPARING; break;
-            case DOMAIN_KITCHEN_COMPLETED : progress = OrderEnum.COMPLETED; break;
-            default : ;
+        Optional<Event> event = EventProgress.getInstance().getCurrentEventByEventEnum(kitchenDTO.getEventType());
+        if(event.isPresent()){
+            this.updateOrder(kitchenDTO.getOrder(), event.get().getOrder());
+        }else{
+            log.info("updateKitchenProgress :: Event is invalid... ");
         }
-        this.updateOrder(kitchenDTO.getOrder(), progress);
+        
     }
 
     @Transactional
@@ -140,6 +163,7 @@ public class OrderService extends BaseService<Order> {
             orderDTO.setMessage("Order successfully cancelled");
         }catch(Exception e){
             orderDTO.setErrorMessage(e.getMessage());
+            throw e;
         }
 
         return orderDTO;

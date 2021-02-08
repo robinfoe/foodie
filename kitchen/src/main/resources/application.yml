@@ -6,23 +6,36 @@ spring:
 server:
   port: 8183
 
+spring.datasource:  
+  type: com.zaxxer.hikari.HikariDataSource
+  url: jdbc:postgresql://localhost:5432/foodie
+  username: foodie
+  password: foodie
+
+spring.jpa:
+  database-platform: org.hibernate.dialect.PostgreSQLDialect
+  hibernate.ddl-auto: create
+  properties.hibernate: 
+    show_sql: true
+    format_sql: true
+
+
 
 
 spring.cloud.stream:
   function:
-    definition: orderEventPublisher;kitchenEventConsumer
+    definition: kitchenEventPublisher;orderEventConsumer
   bindings:
-    orderEventPublisher-out-0:
-      destination: order-events
-    kitchenEventConsumer-in-0:
+    kitchenEventPublisher-out-0:
       destination: kitchen-events
+    orderEventConsumer-in-0:
+      destination: order-events
 
 spring.cloud.stream.kafka.streams.binder:
   brokers: localhost:9093
   zkNodes: localhost:2181
 
-
-
 app:
   restaurant:
     url: http://localhost:8181/api/restaurant
+

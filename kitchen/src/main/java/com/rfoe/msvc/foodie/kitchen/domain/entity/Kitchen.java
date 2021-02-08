@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.rfoe.msvc.foodie.common.enumeration.OrderEnum;
 import com.rfoe.msvc.foodie.common.scalar.base.BaseEntity;
 
 import lombok.Getter;
@@ -22,7 +23,10 @@ public class Kitchen extends BaseEntity{
 
     @Getter @Setter
     private Integer orderId;
-    
+
+    @Getter @Setter
+    private OrderEnum progress = OrderEnum.CREATED;
+
     @Override
     public Serializable getPk() {return this.getId();}
 

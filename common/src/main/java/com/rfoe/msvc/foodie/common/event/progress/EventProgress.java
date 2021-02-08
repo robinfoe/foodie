@@ -20,6 +20,59 @@ public class EventProgress {
 
     private EventProgress(){/**ENSURE SINGLETON*/}
 
+    
+
+    private Optional<Event> getNextEvent(EventEnum eventing, OrderEnum ordering){
+        return getEvent(eventing, ordering, true);
+    }
+
+    private Optional<Event> getCurrentEvent(EventEnum eventing, OrderEnum ordering){
+        return getEvent(eventing, ordering, false);
+    }
+
+    private Optional<Event> getEvent(EventEnum eventing, OrderEnum ordering, boolean isNext){
+
+        Optional<Event> eventOpt = Optional.empty();
+        int i = this.getEventIndex(eventing, ordering);
+        if(i >= 0 ){
+
+            if(isNext){
+                i++;
+            }
+            
+            if(i < events.size() ){
+                eventOpt = Optional.of(events.get( i ));
+            }
+        }
+
+        return eventOpt;
+    }
+
+
+    private int getEventIndex(EventEnum eventing, OrderEnum ordering){
+        
+        int index = -1;
+        for(int i = 0; i < events.size(); i++){
+            Event item = events.get(i);
+            if(eventing != null){
+                if(item.getEvent().equals(eventing)){
+                    index = i;
+                    break;
+                }
+            }else if(ordering != null){
+                if(item.getOrder().equals(ordering)){
+                    index = i;
+                    break;
+                }
+            }
+        }
+
+        return index;
+    }
+
+
+    // HELPER FUNCTIONS...
+
     public Optional<Event> getNextEventByOrderEnum(OrderEnum item){
         return this.getNextEvent(null, item);
     }
@@ -28,35 +81,17 @@ public class EventProgress {
         return this.getNextEvent(item, null);
     }
 
-    private Optional<Event> getNextEvent(EventEnum eventing, OrderEnum ordering){
+    public Optional<Event> getCurrentEventByOrderEnum(OrderEnum item){
+        return this.getCurrentEvent(null, item);
+    }
 
-        Optional<Event> eventOpt = Optional.empty();
-
-        int i = 0;
-        for(; i < events.size(); i++){
-            Event item = events.get(i);
-            if(eventing != null){
-                if(item.getEvent().equals(eventing)){
-                    break;
-                }
-            }else if(ordering != null){
-                if(item.getOrder().equals(ordering)){
-                    break;
-                }
-            }
-        }
-
-        i++;
-
-        if(i < events.size() ){
-            eventOpt = Optional.of(events.get( i ));
-        }
-
-        return eventOpt;
+    public Optional<Event> getCurrentEventByEventEnum(EventEnum item){
+        return this.getCurrentEvent(item, null);
     }
 
 
-    
+
+    // STATIC.... 
     public static EventProgress getInstance(){
 
         if(EventProgress.instance == null){

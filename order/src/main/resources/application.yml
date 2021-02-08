@@ -6,6 +6,20 @@ spring:
 server:
   port: 8182
 
+spring.datasource:  
+  type: com.zaxxer.hikari.HikariDataSource
+  url: jdbc:postgresql://localhost:5432/foodie
+  username: foodie
+  password: foodie
+
+spring.jpa:
+  database-platform: org.hibernate.dialect.PostgreSQLDialect
+  hibernate.ddl-auto: create
+  properties.hibernate: 
+    show_sql: true
+    format_sql: true
+
+
 
 
 spring.cloud.stream:

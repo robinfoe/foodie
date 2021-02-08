@@ -8,7 +8,10 @@ import com.rfoe.msvc.foodie.order.domain.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class KitchenEventListener {
 
     @Autowired
@@ -19,6 +22,7 @@ public class KitchenEventListener {
 
     public void consumeKitchenEvent(String eventText){
         try{
+            log.info(eventText);
             KitchenDTO kitchenDTO = objectMapper.readValue(eventText.getBytes(), KitchenDTO.class);
             service.updateKitchenProgress(kitchenDTO);
 

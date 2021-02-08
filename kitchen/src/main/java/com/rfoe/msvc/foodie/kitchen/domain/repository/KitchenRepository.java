@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface KitchenRepository extends BaseRepo<Kitchen>{
 
-    public List<Kitchen> findByOrderIdandStatus(Integer orderId, String status);
+    public List<Kitchen> findByOrderIdAndStatus(Integer orderId, String status);
     
 }

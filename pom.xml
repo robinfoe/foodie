@@ -28,6 +28,7 @@
     <h2.version>1.4.200</h2.version>
     <reactor.version>3.4.2</reactor.version>
     <persistence-api.version>2.2.3</persistence-api.version>
+    <postgresql.version>42.2.18</postgresql.version>
   </properties>
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -37,6 +38,14 @@
   </parent>
   <dependencyManagement>
     <dependencies>
+
+      <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+<dependency>
+  <groupId>org.postgresql</groupId>
+  <artifactId>postgresql</artifactId>
+  <version>${postgresql.version}</version>
+</dependency>
+
 
       <dependency>
         <groupId>io.springfox</groupId>

@@ -38,7 +38,7 @@ public abstract class BaseEntity extends AbstractPersistable<Integer> implements
 	private Long createdById;
 	
 	@Getter @Setter
-	@Column(name="CREATED_DATETIME" , columnDefinition="DATETIME")
+	@Column(name="CREATED_DATETIME" ) //columnDefinition="DATETIME"
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDateTime;
 	
@@ -48,7 +48,7 @@ public abstract class BaseEntity extends AbstractPersistable<Integer> implements
 	private Long modifiedById;
 	
 	@Getter @Setter
-	@Column(name="MODIFIED_DATETIME" , columnDefinition="DATETIME" )
+	@Column(name="MODIFIED_DATETIME"  ) //columnDefinition="DATETIME"
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modifiedDateTime;
 	

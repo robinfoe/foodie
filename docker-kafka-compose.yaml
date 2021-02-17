@@ -1,5 +1,16 @@
 version: '2'
 services:
+
+  db:
+    image: docker.io/postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: foodie
+      POSTGRES_PASSWORD: foodie
+      POSTGRES_DB: foodie
+    ports: '5432:5432'
+
+## Single kafka instance setup
   zookeeper:
     image: 'docker.io/bitnami/zookeeper:3-debian-10'
     ports:
@@ -8,6 +19,7 @@ services:
       - 'zookeeper_data:/bitnami'
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+
   kafka:
     image: 'docker.io/bitnami/kafka:2-debian-10'
     ports:
@@ -25,6 +37,9 @@ services:
       - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
     depends_on:
       - zookeeper
+
+## Food Services 
+
 volumes:
   zookeeper_data:
     driver: local

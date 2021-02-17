@@ -39,6 +39,29 @@ services:
       - zookeeper
 
 ## Food Services 
+  consumer:
+    image: foodie-consumer:1.0
+    build:
+      context: .
+      dockerfile: ./consumer/Dockerfile
+
+  restaurant:
+    image: foodie-restaurant:1.0
+    build:
+      context: .
+      dockerfile: ./restaurant/Dockerfile
+
+  order:
+    image: foodie-order:1.0
+    build:
+      context: .
+      dockerfile: ./order/Dockerfile
+
+  kitchen:
+    image: foodie-kitchen:1.0
+    build:
+      context: .
+      dockerfile: ./kitchen/Dockerfile
 
 volumes:
   zookeeper_data:

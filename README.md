@@ -9,8 +9,8 @@ Foodie is a simple food provider that allow user to perform online booking and t
 ## Tech stack 
 
 Foodie consist of 
-- Writtern in java 11
-- Springboot as main bootstrap point 
+- SDK Java 11
+- Springboot as main bootstrap  
 - Maven as building tools 
 - Postgres and Kafka as persistance  layer 
 
@@ -59,3 +59,6 @@ docker run -d \
 	-e POSTGRES_DB=foodie \
 	-p 5432:5432 \
 	postgres:13
+
+
+docker build -f ./consumer/Dockerfile -t consumer:1.0 . 

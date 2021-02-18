@@ -126,7 +126,7 @@ public class KitchenService extends BaseService<Kitchen> {
 
             Kitchen kitchen = kitchenOption.get();
             kitchen.setProgress(kitchenDTO.getProgress());
-            kitchenDTO.getOrder().setId(kitchen.getId());;
+            kitchenDTO.getOrder().setId(kitchen.getOrderId());;
             repo.save(kitchen);
             this.producer.broadcastKitchenEvent(kitchenDTO);
         }catch(Exception e){

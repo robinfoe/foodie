@@ -8,7 +8,10 @@ services:
       POSTGRES_USER: foodie
       POSTGRES_PASSWORD: foodie
       POSTGRES_DB: foodie
-    ports: '5432:5432'
+    ports: 
+      - '5432:5432'
+    volumes:
+      - ./01-initdb.sql:/docker-entrypoint-initdb.d/01-initdb.sql 
 
 ## Single kafka instance setup
   zookeeper:
@@ -33,7 +36,7 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
       - KAFKA_CFG_LISTENERS=CLIENT://:9093,EXTERNAL://:9092
-      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9093,EXTERNAL://localhost:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9093,EXTERNAL://kafka:9092
       - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
     depends_on:
       - zookeeper
@@ -41,27 +44,33 @@ services:
 ## Food Services 
   consumer:
     image: foodie-consumer:1.0
-    build:
-      context: .
-      dockerfile: ./consumer/Dockerfile
+    ports:
+      - '8180:8080'
+    depends_on:
+      - db
 
   restaurant:
     image: foodie-restaurant:1.0
-    build:
-      context: .
-      dockerfile: ./restaurant/Dockerfile
+    ports:
+      - '8181:8080'
+    depends_on:
+      - db
 
   order:
     image: foodie-order:1.0
-    build:
-      context: .
-      dockerfile: ./order/Dockerfile
+    ports:
+      - '8182:8080'
+    depends_on:
+      - db
+      - kafka
 
   kitchen:
     image: foodie-kitchen:1.0
-    build:
-      context: .
-      dockerfile: ./kitchen/Dockerfile
+    ports:
+      - '8183:8080'
+    depends_on:
+      - db
+      - kafka
 
 volumes:
   zookeeper_data:

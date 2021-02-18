@@ -26,7 +26,6 @@ public class KitchenWebHandler {
 
     @GetMapping(
         path = "get",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public List<KitchenDTO>getAllKitchenOrder(){

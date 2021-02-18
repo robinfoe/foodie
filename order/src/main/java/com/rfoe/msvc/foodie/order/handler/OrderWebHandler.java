@@ -27,7 +27,6 @@ public class OrderWebHandler {
 
     @GetMapping(
         path = "get",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public List<OrderDTO>getAllKitchenOrder(){

@@ -1,5 +1,6 @@
 
-GET http://localhost:8080/hello
+GET http://localhost:8180/api/consumer/get/1 HTTP/1.1
+content-type: text/plain
 
 ###
 POST http://localhost:8080/create HTTP/1.1

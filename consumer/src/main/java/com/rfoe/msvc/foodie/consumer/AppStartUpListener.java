@@ -16,26 +16,26 @@ import org.springframework.stereotype.Component;
 @Component
 public class AppStartUpListener implements ApplicationListener<ApplicationReadyEvent> {
 
-    @Autowired
-    private ConsumerRepository repo;
+    // @Autowired
+    // private ConsumerRepository repo;
 
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
 
-        Consumer consumer = new Consumer();
+        // Consumer consumer = new Consumer();
 
-        consumer.setName(new Name("Robin", "Foe"));
-        consumer.setEmail("test@email.com");
+        // consumer.setName(new Name("Robin", "Foe"));
+        // consumer.setEmail("test@email.com");
         
-        consumer.getHomeAddress().setAddr01("Jalan Kayu");
-        consumer.getHomeAddress().setPostcode("555555");
-        consumer.getHomeAddress().setCountry("Singapore");
-        consumer.getHomeAddress().setState("Singapore");
+        // consumer.getHomeAddress().setAddr01("Jalan Kayu");
+        // consumer.getHomeAddress().setPostcode("555555");
+        // consumer.getHomeAddress().setCountry("Singapore");
+        // consumer.getHomeAddress().setState("Singapore");
 
-        if(repo.findByEmailIgnoreCase(consumer.getEmail()).isEmpty()){
-            repo.save(consumer);
-        }
+        // if(repo.findByEmailIgnoreCase(consumer.getEmail()).isEmpty()){
+        //     repo.save(consumer);
+        // }
 
     }
     

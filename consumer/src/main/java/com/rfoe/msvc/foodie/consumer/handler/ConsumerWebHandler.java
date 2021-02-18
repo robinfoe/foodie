@@ -31,7 +31,6 @@ public class ConsumerWebHandler {
 
     @GetMapping(
         path = "/get/{id}",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ConsumerDTO get(@PathVariable(value="id") Integer id) {

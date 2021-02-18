@@ -19,46 +19,56 @@ Foodie consist of
 ![Foo](foodie.png)
 
 
-
-
-
 ## Build instructions
 
-### tools 
-- buildpack
-- skaffold 
-- 
+```bash
+make help
+	tasks:
+		help                           List available tasks on this project
+		build.builder                  Create builder image with maven cache 
+		build.consumer                 Compile and create consumer image  
+		build.restaurant               Compile and create restaurant image  
+		build.order                    Compile and create order image  
+		build.kitchen                  Compile and create kitchen image  
+		build.all                      Compile and create all images image  
+		delete.builder                 Remove builder image
+		delete.consumer                Delete consumer image  
+		delete.restaurant              Delete restaurant image  
+		delete.order                   Delete order image  
+		delete.kitchen                 Delete kitchen image  
+		delete.all                     Delete all images  
+		compose.up                     Start microservices
+		compose.down                   Stop microservices
+```
+
 
 ## Deployment 
 
-
-Deployment , statefulset, configmaps
-
-scenario 1
- - consumer and restaurant service + postgresql
-
-Scenario 2 
- - kafka 
+**Foodie** is running on docker and docker-compose and the food service provider wish to re-platform their application to a more scalable solutions such as kubernetes. Your task is to work on migration strategies and produce kubernetes object.
 
 
-Scenario 3 
- - order and kitchen services 
+### Scenario 1
+Migrate the following 
+- Database
+- Consumer Service
+- Restaurant Service
 
 
-// set HPA  ?? 
+### Scenario 2
+Migrate the following 
+- Kafka
+- Order Service
+- Kitchen Service
 
 
-Docker compose
+### Bonus Points
+Implementing the followings
+- Pod QOS
+- Disruption Budget
+- ConfigMap
 
 
-start PG admin
-
-docker run -d \
-	-e POSTGRES_USER=foodie \
-	-e POSTGRES_PASSWORD=foodie \
-	-e POSTGRES_DB=foodie \
-	-p 5432:5432 \
-	postgres:13
-
-
-docker build -f ./consumer/Dockerfile -t consumer:1.0 . 
+### Coming Soon
+- Service Mesh
+- Logging
+- Monitoring

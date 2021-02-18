@@ -22,7 +22,6 @@ public class RestaurantWebHandler {
     
     @GetMapping(
         path = "get",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public List<RestaurantDTO>getAllRestaurant(){

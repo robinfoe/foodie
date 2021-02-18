@@ -1,5 +1,5 @@
 ## BUILD STACK
-FROM adoptopenjdk/openjdk11:jdk-11.0.10_9-alpine as builder
+FROM foodie-openjdk11/alpine:1.0 as builder
 
 ARG MODULE=kitchen
 

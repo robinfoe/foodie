@@ -1,5 +1,5 @@
 
-GET http://localhost:8181/
+GET http://localhost:8181/api/restaurant/get
 
 ###
 GET http://localhost:8181/api/restaurant/get/1 HTTP/1.1

@@ -40,3 +40,7 @@ spring.cloud.stream.kafka.binder:
 app:
   restaurant:
     url: http://restaurant:8080/api/restaurant
+
+management:
+  endpoints:
+    web.exposure.include: prometheus,health,info,metric

@@ -11,6 +11,7 @@
     <java.version>11</java.version>
     <foodie.release>1.0</foodie.release>
     <spring-boot-starter.version>2.4.2</spring-boot-starter.version>
+    <spring-boot-actuator.version>2.4.3</spring-boot-actuator.version>
     <spring-cloud.version>2020.0.0</spring-cloud.version>
     <spring-loaded.version>1.2.8.RELEASE</spring-loaded.version>
     <lombok.version>1.18.6</lombok.version>
@@ -29,7 +30,12 @@
     <reactor.version>3.4.2</reactor.version>
     <persistence-api.version>2.2.3</persistence-api.version>
     <postgresql.version>42.2.18</postgresql.version>
+    <micrometer.version>1.6.4</micrometer.version>
+    <logstash.version>6.6</logstash.version>
   </properties>
+
+  
+  
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -45,6 +51,33 @@
   <artifactId>postgresql</artifactId>
   <version>${postgresql.version}</version>
 </dependency>
+
+
+<dependency>
+  <groupId>io.micrometer</groupId>
+  <artifactId>micrometer-registry-prometheus</artifactId>
+  <version>${micrometer.version}</version>
+</dependency>
+
+
+
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+    <version>${spring-boot-actuator.version}</version>
+  </dependency>
+
+
+
+
+<dependency>
+  <groupId>net.logstash.logback</groupId>
+  <artifactId>logstash-logback-encoder</artifactId>
+  <version>${logstash.version}</version>
+</dependency>
+
+
+
 
 
       <dependency>

@@ -61,6 +61,13 @@ Migrate the following
 - Kitchen Service
 
 
+### Scenario 3
+Integrate with the following
+- Prometheus 
+- logging with kibana
+
+
+
 ### Bonus Points
 Implementing the followings
 - Pod QOS
@@ -70,5 +77,5 @@ Implementing the followings
 
 ### Coming Soon
 - Service Mesh
-- Logging
-- Monitoring
+- Logging - WIP
+- Monitoring - WIP
